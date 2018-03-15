@@ -1,40 +1,71 @@
 # LeafletZoomSlideShow
 
-## Changelog
+## About
 
-### 0.0.1
+LeafletZoomSlideShow is an angular2+ library to view high resolution images.
+It uses the mapping library [leaflet](http://leafletjs.com/) to display the
+images as overlays or tiled images and provides the capabilities to draw
+geo features on top of it. The last part is the main strength in comparison
+to other solutions such as the excellent
+[openseadragon](https://github.com/openseadragon/openseadragon) which uses
+[ratio values](http://openseadragon.github.io/examples/ui-overlays/) for the positioning of overlays, whereas this library
+uses pixel values from the original source, allowing for easier positioning
+of overlays.
 
-  * Image Sources
-  * Rectangle, lines and polygon overlays
 
-### 0.0.2
 
-  * TileLayer Sources
-  
-## Angular Cli
+## Usage
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli).
 
-## Development server
+### Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+### Build Library
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Run the node task `npm run packagr` to build the library. Use `npm pack` from
+inside the dist folder to build a npm package for local installing or uploading
+to npm.
 
-## Build
+## Changelog
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Running unit tests
+### 0.0.4
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  - Pushed repository to github
+  - Enable overlayClick event for linestrings and polygons
 
-## Running end-to-end tests
+### 0.0.3
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+  - Bug fix for AOT-compilation
 
-## Further help
+### 0.0.2
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  - Load sources with tile-mapping scheme  
+
+### 0.0.1
+
+Initial npm version featuring basic functionality such as:
+
+  - Load sources as ImageOverlays
+  - draw different (Rectangle, lines and polygon overlays) features on top off them
+  - Step over all defined sources in the UI
+
+
+## Roadmap
+
+  - improve tags rendering in icons (icons may hide content on high
+    resolutions)
+  - build an editor tool to facilitate the generation of overlays
+
+## Licenses
+
+The example image `rosetta_stone.jpg` of the Rosetta Stone was downloaded from [wikimedia-commons](https://commons.wikimedia.org/wiki/File:Rosetta_Stone_%286488613003%29.jpg)
+and is licensed under CC 2.0.
+
+The example image `usa_independence.jpg` of the declaration of independence was downloaded from [wikimedia-commons](https://commons.wikimedia.org/wiki/File:United_States_Declaration_of_Independence.jpg)
+and is in the public domain.
+
+The example-svg-icons are taken from font-awesome via the
+[font-awesome-svg-png Project](https://github.com/encharm/Font-Awesome-SVG-PNG).

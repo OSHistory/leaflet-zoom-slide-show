@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output,
+  ViewChild } from '@angular/core';
 
 import { LeafletZoomDisplayComponent } from '../leaflet-zoom-display/leaflet-zoom-display.component';
 
@@ -27,14 +28,16 @@ export class LeafletZoomDisplayContainerComponent implements OnInit {
   zoomDisplay: LeafletZoomDisplayComponent;
 
   idx: number = 0;
-
-  constructor() { }
+  height: number;
+  constructor(
+  ) {
+  }
 
   ngOnInit() {
+
   }
 
   fitBounds() {
-    console.log("FITTING BOUNDS");
     this.zoomDisplay.fitBounds();
   }
 
@@ -67,5 +70,5 @@ export class LeafletZoomDisplayContainerComponent implements OnInit {
   onOverlayClick(event: any) {
     this.overlayClick.emit(event);
   }
-  
+
 }

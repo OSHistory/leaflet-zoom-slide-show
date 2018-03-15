@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
 
 import { Icon, ImageOverlay, Polyline, PolylineOptions, Polygon, latLng, LatLngBounds, LatLngExpression, LayerGroup, Map, Marker,
   Point, Popup, CRS, Rectangle, TileLayer } from 'leaflet';
@@ -16,10 +16,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   @Input()
   sourceSlideContent: SourceSlideContent;
 
+
   @Output()
   overlayClick: EventEmitter<any> = new EventEmitter();
 
   map: Map;
+  height: number;
   simpleCRS: CRS = CRS.Simple;
   sourceOverlay: ImageOverlay;
   sourceTileLayer: TileLayer;
@@ -29,10 +31,17 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
 
   maxBounds: LatLngBounds;
 
-  constructor() {
+  constructor(private el: ElementRef) {
+    setTimeout(() => {
+      this.height = 400;
+      console.log("TIMOUT HIT"); 
+    }, 4000);
   }
 
   ngOnInit() {
+    // TODO:
+    this.height = this.el.nativeElement.offsetHeight;
+
     this.map = new Map('zoom-source', {
       crs: this.simpleCRS,
       center: latLng(0,0),
@@ -147,6 +156,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       styleOptions = polygon.style || {};
       // currPoly = new Polygon(projectedCoords, styleOptions);
       currPoly = new Polygon(projectedCoords, styleOptions);
+      currPoly.on('click', (evt) => {
+        this.overlayClick.emit({
+          'type': 'polygon',
+          'data': polygon.data
+        })
+      });
       this.polygonLayer.addLayer(currPoly);
     })
   }
@@ -159,6 +174,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       projectedCoords = this._projectCoordsArray(line.coords, maxZoom);
       styleOptions = line.style || {};
       currLine = new Polyline(projectedCoords, styleOptions);
+      currLine.on('click', (evt) => {
+        this.overlayClick.emit({
+          'type': 'line',
+          'data': line.data
+        })
+      });
       this.lineLayer.addLayer(currLine);
     });
   }
@@ -213,7 +234,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
               ), maxZoom),
               {
                 icon: new Icon({
-                  iconUrl: './assets/icons/' + category + '.png',
+                  iconUrl: category,
                   iconSize: [32,32],
                   iconAnchor: [-(16 + (32 * catIdx)), 16]
                 })

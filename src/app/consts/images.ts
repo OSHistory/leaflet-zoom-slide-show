@@ -3,50 +3,89 @@ const DEFAULT_FILL_COLOR = '#ffee2d';
 export const images = [
   {
     zoom: 0,
-    maxZoom: 6,
+    maxZoom: 4,
     minZoom: 0,
-    imageDim: [11133, 8465],
-    sourceTile: {
-      tileUrl: 'http://localhost/Tb14_599_b_034/{z}/{x}/{y}.png'
+    imageDim: [3923, 4656],
+    sourceImage: {
+      imageUrl: './assets/img/usa_independence.jpg'
     },
     overlays: {
       rectangles: [
         {
-          bottomLeft: [732, 5380],
-          topRight: [9304, 2360],
-          tags: ['woman', 'alcohol'],
+          bottomLeft: [2458, 278],
+          topRight: [3272, 92],
+          tags: ['./assets/icons/calendar.svg'],
           data: {
-            title: 'Betrunkene Frauen',
-            abstract: 'Ein Name ganz unten auf der Liste'
+            title: 'The famous date',
+            link: 'https://en.wikipedia.org/wiki/Independence_Day_(United_States)'
           },
           style: {
-            fillColor: DEFAULT_FILL_COLOR,
-            color: '#000000'
+            fillColor: '#947c74',
+            color: '#782705',
+            fillOpacity: 0.6
           }
         },
         {
-          bottomLeft: [37*4, 109*4],
-          topRight: [158*4, 65*4],
-          tags: ['woman', 'old'],
+          bottomLeft: [2232, 586],
+          topRight: [2386, 512],
+          tags: ['./assets/icons/pencil.svg', './assets/icons/users.svg'],
           data: {
-            title: 'Der Zweite Name',
-            abstract: 'Der Zeite Name aus der Liste'
+            title: 'The founding states',
+            abstract: `Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+               reprehenderit in voluptate velit esse cillum dolore eu fugiat
+               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+               sunt in culpa qui officia deserunt mollit anim id est laborum.`
           },
           style: {
-            fillColor: DEFAULT_FILL_COLOR,
-            color: '#ffffff'
+            fillColor: '#787aaf',
+            color: '#0b186c',
+            fillOpacity: 0.4
+          }
+        }
+      ],
+      lines: [
+        {
+          coords: [[412, 958], [774, 958]],
+          data: {
+            title: 'Unalienable rights',
+          },
+          style: {
+            color: '#2816b8',
+            weight: 2.5,
+
+          }
+        }
+      ],
+      polygons: [
+        {
+          coords: [[374,1414], [3762,1414],
+            [3762, 2112], [3098,2112], [3098, 2180],
+            [162, 2180], [162,2180], [162, 1484],
+            [374,1484]
+          ],
+          data: {
+            title: 'The "He Has..." part'
+          },
+          style: {
+            fillColor: '#2299f2',
+            color: '#082d8a'
           }
         },
         {
-          bottomLeft: [514*4, 621*4],
-          topRight: [878*4,556*4],
-          tags: ['man', 'alcohol'],
+          coords: [
+            [1722, 3462], [2248, 3462], [2184, 3546], [2242, 3550], [2276, 3568],
+            [2248, 3620], [2152, 3598], [1680, 3638], [1528, 3680],
+            [1502, 3622], [1684, 3514]
+          ],
           data: {
-            title: 'Der letzte Kommentar',
-            abstract: 'Der Teil knapp über dem winzigen Teil'
+            title: 'John Hancocks signature'
           },
           style: {
-            fillColor: '#bbe3f1'
+            fillColor: '#94466e',
+            color: '#4a070c'
           }
         }
       ]
@@ -58,19 +97,18 @@ export const images = [
     minZoom: 0,
     imageDim: [3066, 3834],
     sourceImage: {
-      imageUrl: './assets/img/rosetta.jpg'
+      imageUrl: './assets/img/rosetta_stone.jpg'
     },
     overlays: {
       rectangles: [
         {
           bottomLeft: [45, 934.5],
           topRight: [730.5, 451.5],
-          tags: ['woman', 'old'],
+          tags: [],
           data: {
-            title: 'Die obere Bruchkante',
-            abstract: 'Hier beginnt die obere Bruchkante'
+            title: 'The upper rectangle',
+            abstract: ''
           },
-          image: 'sources/detail/page1-witwe.png',
           style: {
             fillColor: '#9a5b2d',
             color: '#90eeff',
@@ -80,12 +118,17 @@ export const images = [
         {
           bottomLeft: [1656, 2472],
           topRight: [3063, 1797],
-          tags: ['man', 'alcohol'],
+          tags: [],
           data: {
-            title: 'Der Part über der Bruchlinie',
-            abstract: 'Der Teil knapp über dem winzigen Teil'
+            title: 'A part above the smaller sized text',
+            abstract: `Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+              sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+               reprehenderit in voluptate velit esse cillum dolore eu fugiat
+               nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+               sunt in culpa qui officia deserunt mollit anim id est laborum.`
           },
-          image: 'sources/detail/page1-trunkenbold.png',
           style: {
             fillColor: DEFAULT_FILL_COLOR
           }
@@ -94,6 +137,10 @@ export const images = [
       lines: [
         {
           coords: [[45, 954.5], [2913, 954.5]],
+          data: {
+            title: 'Example of a linestring',
+            custom: 'You can pass any value to data, which will be emitted'
+          },
           style: {
             color: '#ee99fc',
             weight: 6.5
@@ -104,62 +151,14 @@ export const images = [
         {
           coords: [[200, 1200], [2010, 900],
             [1700, 2100], [350, 1800], [200, 1200]],
+          data: {
+            title: 'A fancy polyon'
+          },
           style: {
             fillColor: '#2299f2',
             color: '#d9212e'
           }
         },
-      ]
-    }
-  },
-  {
-    zoom: 0,
-    maxZoom: 4,
-    minZoom: 0,
-    imageDim: [3540, 2520],
-    sourceImage: {
-      imageUrl: './assets/img/page1-resized.png'
-    },
-    overlays: {
-      rectangles: [
-        {
-          bottomLeft: [36*4, 542*4],
-          topRight: [150*4, 499*4],
-          tags: ['woman', 'alcohol'],
-          data: {
-            title: 'Betrunkene Frauen',
-            abstract: 'Ein Name ganz unten auf der Liste'
-          },
-          style: {
-            fillColor: DEFAULT_FILL_COLOR,
-            color: '#000000'
-          }
-        },
-        {
-          bottomLeft: [37*4, 109*4],
-          topRight: [158*4, 65*4],
-          tags: ['woman', 'old'],
-          data: {
-            title: 'Der Zweite Name',
-            abstract: 'Der Zeite Name aus der Liste'
-          },
-          style: {
-            fillColor: DEFAULT_FILL_COLOR,
-            color: '#ffffff'
-          }
-        },
-        {
-          bottomLeft: [514*4, 621*4],
-          topRight: [878*4,556*4],
-          tags: ['man', 'alcohol'],
-          data: {
-            title: 'Der letzte Kommentar',
-            abstract: 'Der Teil knapp über dem winzigen Teil'
-          },
-          style: {
-            fillColor: '#bbe3f1'
-          }
-        }
       ]
     }
   }

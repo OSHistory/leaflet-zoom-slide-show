@@ -1,5 +1,5 @@
 
-import { ImageOverlayOptions, PolylineOptions, TileLayerOptions } from 'leaflet';
+import { ImageOverlayOptions, PathOptions, PolylineOptions, TileLayerOptions } from 'leaflet';
 
 export interface SourceSlideContent {
   zoom: number;
@@ -33,7 +33,7 @@ export interface OverlayRectangle {
   topRight: [number, number];
   tags: string[];
   data: any;
-  style?: PolylineOptions;
+  style?: PathOptions;
 }
 
 export interface OverlayLine {
@@ -45,16 +45,5 @@ export interface OverlayLine {
 export interface OverlayPolygon {
   coords: [number, number][];
   data: any;
-  style?: PolylineOptions;
-}
-
-export interface OverlayLineStyle {
-  strokeColor?: string;
-  strokeWidth: string;
-}
-
-export interface OverlayPolygonStyle {
-  fillColor?: string;
-  strokeColor?: string;
-  strokeWidth?: number;
+  style?: PathOptions;
 }
