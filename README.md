@@ -35,6 +35,7 @@ to npm.
 
   - Pushed repository to github
   - Enable overlayClick event for linestrings and polygons
+  - propagate map-click through event-emitter
 
 ### 0.0.3
 
