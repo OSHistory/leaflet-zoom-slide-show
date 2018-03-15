@@ -16,9 +16,11 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   @Input()
   sourceSlideContent: SourceSlideContent;
 
-
   @Output()
   overlayClick: EventEmitter<any> = new EventEmitter();
+
+  @Output()
+  mapClick: EventEmitter<any> = new EventEmitter();
 
   map: Map;
   height: number;
@@ -32,14 +34,11 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   maxBounds: LatLngBounds;
 
   constructor(private el: ElementRef) {
-    setTimeout(() => {
-      this.height = 400;
-      console.log("TIMOUT HIT"); 
-    }, 4000);
   }
 
   ngOnInit() {
-    // TODO:
+    // TODO: Alternative to use of ElementRef to increase
+    //      platform independency
     this.height = this.el.nativeElement.offsetHeight;
 
     this.map = new Map('zoom-source', {
@@ -53,8 +52,10 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     this.map.addLayer(this.rectangleLayer);
     // TODO: Debugging no external usage
     this.map.on('click', (evt: any) => {
-      console.log(evt.latlng);
-      console.log(this.map.getZoom());
+      this.mapClick.emit({
+        latLng: evt.latLng,
+        zoom: this.map.getZoom()
+      });
     });
   }
 
@@ -73,6 +74,10 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     if (this.sourceSlideContent) {
       this._bootstrapSettings()
     }
+  }
+
+  public onWindowResize(event: any) {
+    this.height = this.el.nativeElement.offsetHeight;
   }
 
   // Public method to reset the zoom to the bounds
