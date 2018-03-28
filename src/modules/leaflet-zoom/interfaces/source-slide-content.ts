@@ -28,22 +28,30 @@ export interface Overlays {
   polygons?: OverlayPolygon[];
 }
 
+export interface OverlayPopup {
+  display: boolean;
+  contentFunc: Function;
+}
+
 export interface OverlayRectangle {
   bottomLeft: [number, number];
   topRight: [number, number];
   tags: string[];
   data: any;
+  popup?: OverlayPopup;
   style?: PathOptions;
 }
 
 export interface OverlayLine {
   coords: [number,number][];
   data: any;
+  popup?: OverlayPopup;
   style?: PolylineOptions;
 }
 
 export interface OverlayPolygon {
   coords: [number, number][];
   data: any;
+  popup?: OverlayPopup;
   style?: PathOptions;
 }

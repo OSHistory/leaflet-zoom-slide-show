@@ -23,6 +23,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   mapClick: EventEmitter<any> = new EventEmitter();
 
   map: Map;
+  popup: Popup;
   height: number;
   simpleCRS: CRS = CRS.Simple;
   sourceOverlay: ImageOverlay;
@@ -47,6 +48,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       zoom: 0,
       maxBoundsViscosity: 0.7
     });
+    this.popup = new Popup();
     this.map.addLayer(this.lineLayer);
     this.map.addLayer(this.polygonLayer);
     this.map.addLayer(this.rectangleLayer);
@@ -161,11 +163,17 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       styleOptions = polygon.style || {};
       // currPoly = new Polygon(projectedCoords, styleOptions);
       currPoly = new Polygon(projectedCoords, styleOptions);
-      currPoly.on('click', (evt) => {
-        this.overlayClick.emit({
-          'type': 'polygon',
-          'data': polygon.data
-        })
+      currPoly.on('click', (evt: any) => {
+        if (polygon.popup === undefined) {
+          currPoly.unbindPopup();
+          this.overlayClick.emit({
+            'type': 'polygon',
+            'data': polygon.data
+          });
+        } else {
+          currPoly.bindPopup(this.popup);
+          this._setPopupOnOverlay(polygon, evt.latlng);
+        }
       });
       this.polygonLayer.addLayer(currPoly);
     })
@@ -179,11 +187,17 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       projectedCoords = this._projectCoordsArray(line.coords, maxZoom);
       styleOptions = line.style || {};
       currLine = new Polyline(projectedCoords, styleOptions);
-      currLine.on('click', (evt) => {
-        this.overlayClick.emit({
-          'type': 'line',
-          'data': line.data
-        })
+      currLine.on('click', (evt: any) => {
+        if (line.popup === undefined) {
+          currLine.unbindPopup();
+          this.overlayClick.emit({
+            'type': 'line',
+            'data': line.data
+          });
+        } else {
+          currLine.bindPopup(this.popup);
+          this._setPopupOnOverlay(line, evt.latlng);
+        }
       });
       this.lineLayer.addLayer(currLine);
     });
@@ -222,11 +236,19 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         ),
         styleOptions
       );
-      currRect.on('click', (evt) => {
-        this.overlayClick.emit({
-          'type': 'rectangle',
-          'data': rectangle.data
-        });
+      currRect.on('click', (evt: any) => {
+        if (rectangle.popup === undefined) {
+          currRect.unbindPopup();
+          console.log("Is undefined");
+          this.overlayClick.emit({
+            'type': 'rectangle',
+            'data': rectangle.data
+          });
+        } else {
+          console.log("Is not undefined");
+          currRect.bindPopup(this.popup);
+          this._setPopupOnOverlay(rectangle, evt.latlng);
+        }
       });
       this.rectangleLayer.addLayer(currRect);
       if (rectangle.tags) {
@@ -255,5 +277,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         });
       }
     });
+  }
+
+  private _setPopupOnOverlay(overlay: any, latlng: any) {
+    let content = overlay.popup.contentFunc(overlay.data);
+    console.log(content);
+    this.popup.setContent(content)
+    this.popup.openPopup(latlng);
   }
 }

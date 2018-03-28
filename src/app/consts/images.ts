@@ -39,6 +39,11 @@ export const images = [
                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
                sunt in culpa qui officia deserunt mollit anim id est laborum.`
           },
+          popup: {
+            display: true,
+            contentFunc: function(data) {
+              return "<h1>" + data.title + "</h1>" + "<p>" + data.abstract + "</p>";
+          },
           style: {
             fillColor: '#787aaf',
             color: '#0b186c',
@@ -51,6 +56,16 @@ export const images = [
           coords: [[412, 958], [774, 958]],
           data: {
             title: 'Unalienable rights',
+            wiki: 'https://en.wikipedia.org/wiki/Natural_and_legal_rights',
+            wikiText: 'Natural Rights'
+          },
+          popup: {
+            display: true,
+            contentFunc: function(data) {
+              return `<h1>${data.title}</h1>
+                <p>Refers to
+                  <a href=${data.wiki}>${data.wikiText}</a>
+                </p>`;
           },
           style: {
             color: '#2816b8',
@@ -81,7 +96,14 @@ export const images = [
             [1502, 3622], [1684, 3514]
           ],
           data: {
-            title: 'John Hancocks signature'
+            title: 'John Hancocks signature',
+            comment: 'It is very beautiful!'
+          },
+          popup: {
+            display: true,
+            contentFunc: function(data) {
+              return `<h1>${data.title}</h1><p>Comment: ${data.comment}</p>`;
+            }
           },
           style: {
             fillColor: '#94466e',
@@ -141,6 +163,7 @@ export const images = [
             title: 'Example of a linestring',
             custom: 'You can pass any value to data, which will be emitted'
           },
+
           style: {
             color: '#ee99fc',
             weight: 6.5
