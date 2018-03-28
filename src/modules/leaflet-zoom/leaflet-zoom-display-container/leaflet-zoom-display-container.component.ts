@@ -24,6 +24,9 @@ export class LeafletZoomDisplayContainerComponent implements OnInit {
   @Output()
   overlayClick: EventEmitter<any> = new EventEmitter();
 
+  @Output()
+  helpRequested: EventEmitter<boolean> = new EventEmitter();
+
   @ViewChild('zoomDisplay')
   zoomDisplay: LeafletZoomDisplayComponent;
 
@@ -71,4 +74,7 @@ export class LeafletZoomDisplayContainerComponent implements OnInit {
     this.overlayClick.emit(event);
   }
 
+  triggerHelp() {
+    this.helpRequested.emit(true);
+  }
 }

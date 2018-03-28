@@ -28,4 +28,8 @@ export class AppComponent {
       data: event.data
     });
   }
+
+  onHelpRequested() {
+    console.log("HELP REQUESTED"); 
+  }
 }

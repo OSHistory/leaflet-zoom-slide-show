@@ -2,20 +2,37 @@
   <mat-toolbar color="primary"
   (swipeleft)="prevSource()"
   (swiperight)="nextSource()">
-    <span>{{idx+1}}/{{sourceSlides.length}}</span>
+    <span>
+      <span>
+        <button mat-icon-button
+        (click)="prevSource()">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+      </span>
+      <span>{{idx+1}}/{{sourceSlides.length}}</span>
+      <span>
+        <button mat-icon-button
+        (click)="nextSource()">
+          <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+      </span>
+    </span>
+
     <span>
       <button mat-icon-button
         (click)="fitBounds()">
         <mat-icon>zoom_out_map</mat-icon>
       </button>
     </span>
+    <span>
+      <button mat-icon-button
+        (click)="triggerHelp()">
+        <mat-icon>info</mat-icon>
+      </button>
+    </span>
   </mat-toolbar>
   <div class="zoom-container" fxFlex fxLayout="row">
     <div fxFlex="70px" fxLayoutAlign="center stretch">
-      <button mat-fab
-        (click)="prevSource()">
-        <mat-icon>keyboard_arrow_left</mat-icon>
-      </button>
     </div>
     <fze-leaflet-zoom-display #zoomDisplay
       fxFlex
