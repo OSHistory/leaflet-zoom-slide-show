@@ -19,6 +19,12 @@ export const images = [
             title: 'The famous date',
             link: 'https://en.wikipedia.org/wiki/Independence_Day_(United_States)'
           },
+          popup: {
+            display: true,
+            contentFunc: function(data) {
+              return "<h1>" + data.title + "</h1>";
+            }
+          },
           style: {
             fillColor: '#947c74',
             color: '#782705',

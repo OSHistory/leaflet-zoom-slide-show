@@ -30,6 +30,14 @@ to npm.
 
 ## Changelog
 
+### 0.0.7
+
+  - Bugfix for overwriting of popups
+
+### 0.0.6
+
+  - Bugfix for popups
+
 ### 0.0.5
 
   - Enable tooltips directly from map

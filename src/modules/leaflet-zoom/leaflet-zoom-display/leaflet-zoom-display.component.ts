@@ -163,9 +163,6 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       styleOptions = polygon.style || {};
       // currPoly = new Polygon(projectedCoords, styleOptions);
       currPoly = new Polygon(projectedCoords, styleOptions);
-      if (polygon.popup) {
-        currPoly.bindPopup(this._getPopupContent(polygon));
-      }
       currPoly.on('click', (evt: any) => {
         if (polygon.popup === undefined) {
           this.overlayClick.emit({
@@ -177,6 +174,9 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         }
       });
       this.polygonLayer.addLayer(currPoly);
+      if (polygon.popup) {
+        currPoly.bindPopup(this._getPopupContent(polygon));
+      }
     })
   }
 
@@ -188,9 +188,6 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       projectedCoords = this._projectCoordsArray(line.coords, maxZoom);
       styleOptions = line.style || {};
       currLine = new Polyline(projectedCoords, styleOptions);
-      if (line.popup) {
-        currLine.bindPopup(this._getPopupContent(line));
-      }
       currLine.on('click', (evt: any) => {
         if (line.popup === undefined) {
           currLine.unbindPopup();
@@ -203,6 +200,9 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         }
       });
       this.lineLayer.addLayer(currLine);
+      if (line.popup) {
+        currLine.bindPopup(this._getPopupContent(line));
+      }
     });
   }
 
@@ -239,9 +239,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         ),
         styleOptions
       );
-      if (rectangle.popup) {
-        currRect.bindPopup(this._getPopupContent(rectangle))
-      }
+
       currRect.on('click', (evt: any) => {
         if (rectangle.popup === undefined) {
           this.overlayClick.emit({
@@ -253,6 +251,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         }
       });
       this.rectangleLayer.addLayer(currRect);
+      // NOTE: bind popup after adding to layer group, because otherwise
+      // rectangle gets overwritten (last content will be displayed on all)
+      if (rectangle.popup) {
+        console.log(rectangle);
+        currRect.bindPopup(this._getPopupContent(rectangle));
+      }
       if (rectangle.tags) {
         rectangle.tags.forEach((category, catIdx) => {
           let marker = new Marker(
