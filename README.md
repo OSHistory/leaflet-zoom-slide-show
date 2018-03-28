@@ -30,6 +30,11 @@ to npm.
 
 ## Changelog
 
+### 0.0.5
+
+  - Enable tooltips directly from map
+  - Add help icon in display container
+  - moved cycle buttons to toolbar
 
 ### 0.0.4
 

@@ -31,19 +31,11 @@
       </button>
     </span>
   </mat-toolbar>
-  <div class="zoom-container" fxFlex fxLayout="row">
-    <div fxFlex="70px" fxLayoutAlign="center stretch">
-    </div>
+  <div class="zoom-container" fxFlex>
     <fze-leaflet-zoom-display #zoomDisplay
       fxFlex
       [sourceSlideContent]="sourceSlides[idx]"
       (overlayClick)="onOverlayClick($event)"></fze-leaflet-zoom-display>
-    <div fxFlex="70px" fxLayoutAlign="center stretch">
-      <button mat-fab
-        (click)="nextSource()">
-        <mat-icon>keyboard_arrow_right</mat-icon>
-      </button>
-    </div>
   </div>
 </div>
 <!-- <button mat-raised-button (click)="prevSource()">Previous Source</button>

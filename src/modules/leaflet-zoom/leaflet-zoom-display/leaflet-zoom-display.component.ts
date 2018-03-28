@@ -163,16 +163,17 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       styleOptions = polygon.style || {};
       // currPoly = new Polygon(projectedCoords, styleOptions);
       currPoly = new Polygon(projectedCoords, styleOptions);
+      if (polygon.popup) {
+        currPoly.bindPopup(this._getPopupContent(polygon));
+      }
       currPoly.on('click', (evt: any) => {
         if (polygon.popup === undefined) {
-          currPoly.unbindPopup();
           this.overlayClick.emit({
             'type': 'polygon',
             'data': polygon.data
           });
         } else {
-          currPoly.bindPopup(this.popup);
-          this._setPopupOnOverlay(polygon, evt.latlng);
+          currPoly.openPopup();
         }
       });
       this.polygonLayer.addLayer(currPoly);
@@ -187,6 +188,9 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       projectedCoords = this._projectCoordsArray(line.coords, maxZoom);
       styleOptions = line.style || {};
       currLine = new Polyline(projectedCoords, styleOptions);
+      if (line.popup) {
+        currLine.bindPopup(this._getPopupContent(line));
+      }
       currLine.on('click', (evt: any) => {
         if (line.popup === undefined) {
           currLine.unbindPopup();
@@ -195,8 +199,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
             'data': line.data
           });
         } else {
-          currLine.bindPopup(this.popup);
-          this._setPopupOnOverlay(line, evt.latlng);
+          currLine.openPopup();
         }
       });
       this.lineLayer.addLayer(currLine);
@@ -236,18 +239,17 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         ),
         styleOptions
       );
+      if (rectangle.popup) {
+        currRect.bindPopup(this._getPopupContent(rectangle))
+      }
       currRect.on('click', (evt: any) => {
         if (rectangle.popup === undefined) {
-          currRect.unbindPopup();
-          console.log("Is undefined");
           this.overlayClick.emit({
             'type': 'rectangle',
             'data': rectangle.data
           });
         } else {
-          console.log("Is not undefined");
-          currRect.bindPopup(this.popup);
-          this._setPopupOnOverlay(rectangle, evt.latlng);
+          currRect.openPopup(evt.latlng);
         }
       });
       this.rectangleLayer.addLayer(currRect);
@@ -279,10 +281,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     });
   }
 
-  private _setPopupOnOverlay(overlay: any, latlng: any) {
-    let content = overlay.popup.contentFunc(overlay.data);
-    console.log(content);
-    this.popup.setContent(content)
-    this.popup.openPopup(latlng);
+  private _getPopupContent(overlay: any) {
+    return overlay.popup.contentFunc(overlay.data);
   }
 }

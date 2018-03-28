@@ -1,5 +1,5 @@
 
-<div class="main" fxFlex>
+<div class="main" fxFlex *ngIf="showContent">
   <fze-leaflet-zoom-display-container
     [sourceSlides]="images"
     [cycle]="true"

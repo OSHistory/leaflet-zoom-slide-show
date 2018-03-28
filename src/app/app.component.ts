@@ -16,13 +16,18 @@ export class AppComponent {
   images: any[] = images;
   idx: number = 0;
 
+  // DEBUGGING
+  // Test if working as expected when initially not loaded
+  showContent: boolean = true;
+
   constructor(
     public dialog: MatDialog
   ) {
-
+    setTimeout(() => {
+      this.showContent = true;
+    }, 3000);
   }
   onOverlayClick(event: any) {
-    console.log(event.data);
     let dialogRef = this.dialog.open(FeatureDataDisplayDialogComponent, {
       width: '350px',
       data: event.data
@@ -30,6 +35,6 @@ export class AppComponent {
   }
 
   onHelpRequested() {
-    console.log("HELP REQUESTED"); 
+    console.log("HELP REQUESTED");
   }
 }

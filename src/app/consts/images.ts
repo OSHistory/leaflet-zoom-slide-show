@@ -43,6 +43,7 @@ export const images = [
             display: true,
             contentFunc: function(data) {
               return "<h1>" + data.title + "</h1>" + "<p>" + data.abstract + "</p>";
+            },
           },
           style: {
             fillColor: '#787aaf',
@@ -66,6 +67,7 @@ export const images = [
                 <p>Refers to
                   <a href=${data.wiki}>${data.wikiText}</a>
                 </p>`;
+            }
           },
           style: {
             color: '#2816b8',
