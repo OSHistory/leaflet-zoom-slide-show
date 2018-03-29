@@ -19,6 +19,9 @@ export const images = [
             title: 'The famous date',
             link: 'https://en.wikipedia.org/wiki/Independence_Day_(United_States)'
           },
+          text: {
+            content: 'foobar'
+          },
           popup: {
             display: true,
             contentFunc: function(data) {
@@ -60,11 +63,14 @@ export const images = [
       ],
       lines: [
         {
-          coords: [[412, 958], [774, 958]],
+          coords: [[412, 958], [3774, 958]],
           data: {
             title: 'Unalienable rights',
             wiki: 'https://en.wikipedia.org/wiki/Natural_and_legal_rights',
             wikiText: 'Natural Rights'
+          },
+          text: {
+            content: 'A sample permanent popup'
           },
           popup: {
             display: true,

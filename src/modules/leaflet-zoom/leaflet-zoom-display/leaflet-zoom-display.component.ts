@@ -46,7 +46,8 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       crs: this.simpleCRS,
       center: latLng(0,0),
       zoom: 0,
-      maxBoundsViscosity: 0.7
+      maxBoundsViscosity: 0.7,
+      attributionControl: false
     });
     this.popup = new Popup();
     this.map.addLayer(this.lineLayer);
@@ -190,7 +191,6 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       currLine = new Polyline(projectedCoords, styleOptions);
       currLine.on('click', (evt: any) => {
         if (line.popup === undefined) {
-          currLine.unbindPopup();
           this.overlayClick.emit({
             'type': 'line',
             'data': line.data
@@ -202,6 +202,13 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       this.lineLayer.addLayer(currLine);
       if (line.popup) {
         currLine.bindPopup(this._getPopupContent(line));
+      }
+      if (line.text) {
+        currLine.bindTooltip(line.text.content, {
+          permanent: true,
+          direction: 'auto',
+          className: 'my-ex-tooltip'
+        });
       }
     });
   }
@@ -256,6 +263,13 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       if (rectangle.popup) {
         console.log(rectangle);
         currRect.bindPopup(this._getPopupContent(rectangle));
+      }
+      if (rectangle.text) {
+        currRect.bindTooltip(rectangle.text.content, {
+          permanent: true,
+          direction: 'center',
+          className: 'my-ex-tooltip'
+        });
       }
       if (rectangle.tags) {
         rectangle.tags.forEach((category, catIdx) => {
