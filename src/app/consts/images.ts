@@ -10,6 +10,27 @@ export const images = [
       imageUrl: './assets/img/usa_independence.jpg'
     },
     overlays: {
+      markers: [
+        {
+          coords: [2000, 3000],
+          // icon: {
+          //   iconUrl: './assets/icons/pencil.svg',
+          //   iconSize: [32, 32]
+          // },
+          data: {
+            title: 'An anchor point for a text marker'
+          },
+          text: {
+            content: 'My Text Marker',
+            tooltip: {
+              permanent: true,
+              direction: 'center',
+              className: 'my-ex-tooltip',
+              opacity: 1.0
+            }
+          }
+        }
+      ],
       rectangles: [
         {
           bottomLeft: [2458, 278],
@@ -19,9 +40,9 @@ export const images = [
             title: 'The famous date',
             link: 'https://en.wikipedia.org/wiki/Independence_Day_(United_States)'
           },
-          text: {
-            content: 'foobar'
-          },
+          // text: {
+          //   content: 'foobar'
+          // },
           popup: {
             display: true,
             contentFunc: function(data) {
@@ -69,9 +90,9 @@ export const images = [
             wiki: 'https://en.wikipedia.org/wiki/Natural_and_legal_rights',
             wikiText: 'Natural Rights'
           },
-          text: {
-            content: 'A sample permanent popup'
-          },
+          // text: {
+          //   content: 'A sample permanent popup'
+          // },
           popup: {
             display: true,
             contentFunc: function(data) {

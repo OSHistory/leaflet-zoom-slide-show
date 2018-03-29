@@ -3,8 +3,11 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .my-ex-tooltip {
-  background-color: red;
-  color: blue;
-  font-size: 44px;
-  transform: rotate(90deg);  
+  background-color: rgb(103, 82, 79);
+  color: rgb(116, 14, 8);
+  font-size: 12px;
+  /*TBD: transform not working
+   * Because already set
+   */
+  transform: rotate(90deg);
 }

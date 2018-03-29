@@ -1,5 +1,6 @@
 
-import { ImageOverlayOptions, PathOptions, PolylineOptions, TileLayerOptions } from 'leaflet';
+import { ImageOverlayOptions, IconOptions,  PathOptions, PolylineOptions,
+  TileLayerOptions, TooltipOptions } from 'leaflet';
 
 export interface SourceSlideContent {
   zoom: number;
@@ -23,6 +24,7 @@ export interface SourceTile {
 
 
 export interface Overlays {
+  markers?: OverlayMarker[];
   rectangles?: OverlayRectangle[];
   lines?: OverlayLine[];
   polygons?: OverlayPolygon[];
@@ -33,16 +35,25 @@ export interface OverlayPopup {
   contentFunc: Function;
 }
 
+// TBD: use leaflet options
 export interface OverlayText {
   content: string;
-  position?: string; // TBD: center left etc
-  className?: string;
+  tooltip: TooltipOptions; 
 }
+
+export interface OverlayMarker {
+  coords: [number, number],
+  data?: any;
+  icon?: IconOptions;
+  popup?: OverlayPopup;
+  text?: OverlayText;
+}
+
 export interface OverlayRectangle {
   bottomLeft: [number, number];
   topRight: [number, number];
-  tags: string[];
-  data: any;
+  tags?: string[];
+  data?: any;
   popup?: OverlayPopup;
   text?: OverlayText;
   style?: PathOptions;
@@ -52,7 +63,7 @@ export interface OverlayLine {
   coords: [number,number][];
   data: any;
   popup?: OverlayPopup;
-  text?: OverlayText; 
+  text?: OverlayText;
   style?: PolylineOptions;
 }
 

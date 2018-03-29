@@ -1,9 +1,9 @@
 import { Component, AfterViewInit, ElementRef, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
 
-import { Icon, ImageOverlay, Polyline, PolylineOptions, Polygon, latLng, LatLngBounds, LatLngExpression, LayerGroup, Map, Marker,
+import { Icon, ImageOverlay, Polyline, PolylineOptions, Polygon, latLng, LatLngBounds, LatLngExpression, LayerGroup, Map, Marker, MarkerOptions,
   Point, Popup, CRS, Rectangle, TileLayer } from 'leaflet';
 
-import { SourceSlideContent, Overlays, OverlayLine,
+import { SourceSlideContent, Overlays, OverlayLine, OverlayMarker,
   OverlayPolygon, OverlayRectangle } from '../interfaces/source-slide-content';
 
 @Component({
@@ -28,6 +28,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   simpleCRS: CRS = CRS.Simple;
   sourceOverlay: ImageOverlay;
   sourceTileLayer: TileLayer;
+  markerLayer: LayerGroup = new LayerGroup([]);
   rectangleLayer: LayerGroup = new LayerGroup([]);
   lineLayer: LayerGroup = new LayerGroup([]);
   polygonLayer: LayerGroup = new LayerGroup([]);
@@ -50,6 +51,8 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       attributionControl: false
     });
     this.popup = new Popup();
+    // TODO: set rendering order for plugin
+    this.map.addLayer(this.markerLayer);
     this.map.addLayer(this.lineLayer);
     this.map.addLayer(this.polygonLayer);
     this.map.addLayer(this.rectangleLayer);
@@ -136,12 +139,16 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   }
 
   private _clearOverlays() {
+    this.markerLayer.clearLayers();
     this.rectangleLayer.clearLayers();
     this.lineLayer.clearLayers();
     this.polygonLayer.clearLayers();
   }
 
   private _bootstrapOverlays(overlays: Overlays, maxZoom: number) {
+    if (overlays.markers) {
+      this._bootstrapMarkers(overlays.markers, maxZoom);
+    }
     if (overlays.lines) {
       this._bootstrapLines(overlays.lines, maxZoom);
     }
@@ -154,6 +161,42 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     }
   }
 
+  private _bootstrapMarkers(markers: OverlayMarker[], maxZoom: number) {
+    let currMarker: Marker;
+    let projectedCoords: LatLngExpression;
+    markers.forEach((marker: OverlayMarker) => {
+      let projectedCoords = this.map.unproject(
+        new Point(marker.coords[0], marker.coords[1]),
+        maxZoom
+      );
+      // TODO: add icon options
+      let markerOptions: MarkerOptions = undefined;
+      if (marker.icon) {
+        markerOptions = {
+          icon: new Icon(marker.icon)
+        };
+      }
+      currMarker = new Marker(projectedCoords, markerOptions);
+      currMarker.on('click', (evt: any) => {
+        if (marker.popup === undefined) {
+          this.overlayClick.emit({
+            'type': 'marker',
+            'data': marker.data
+          })
+        } else {
+          currMarker.openPopup();
+        }
+      });
+      this.markerLayer.addLayer(currMarker);
+      if (marker.popup) {
+        currMarker.bindPopup(this._getPopupContent(marker));
+      }
+      if (marker.text) {
+        currMarker.bindTooltip(marker.text.content, marker.text.tooltip);
+      }
+    });
+
+  }
   private _bootstrapPolygons(polygons: OverlayPolygon[], maxZoom: number) {
     let currPoly: Polygon;
     let projectedCoords: LatLngExpression[];
@@ -204,11 +247,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         currLine.bindPopup(this._getPopupContent(line));
       }
       if (line.text) {
-        currLine.bindTooltip(line.text.content, {
-          permanent: true,
-          direction: 'auto',
-          className: 'my-ex-tooltip'
-        });
+        currLine.bindTooltip(line.text.content, line.text.tooltip);
       }
     });
   }
@@ -261,15 +300,10 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       // NOTE: bind popup after adding to layer group, because otherwise
       // rectangle gets overwritten (last content will be displayed on all)
       if (rectangle.popup) {
-        console.log(rectangle);
         currRect.bindPopup(this._getPopupContent(rectangle));
       }
       if (rectangle.text) {
-        currRect.bindTooltip(rectangle.text.content, {
-          permanent: true,
-          direction: 'center',
-          className: 'my-ex-tooltip'
-        });
+        currRect.bindTooltip(rectangle.text.content, rectangle.text.tooltip);
       }
       if (rectangle.tags) {
         rectangle.tags.forEach((category, catIdx) => {
