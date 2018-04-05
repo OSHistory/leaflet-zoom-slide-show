@@ -30,6 +30,15 @@ to npm.
 
 ## Changelog
 
+### 0.0.9
+
+  - Add fontSet options for alternatives to material icons
+
+### 0.0.8
+
+  - Add markers layer
+  - Add text options (uses tooltip)
+
 ### 0.0.7
 
   - Bugfix for overwriting of popups

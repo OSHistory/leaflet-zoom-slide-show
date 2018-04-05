@@ -6,28 +6,31 @@
       <span>
         <button mat-icon-button
         (click)="prevSource()">
-          <mat-icon>keyboard_arrow_left</mat-icon>
+        <mat-icon *ngIf="fontSet === 'material'">keyboard_arrow_left</mat-icon>
+        <mat-icon *ngIf="fontSet === 'fontawesome'" fontSet="fontawesome" fontIcon="fa-angle-left"></mat-icon>
         </button>
       </span>
       <span>{{idx+1}}/{{sourceSlides.length}}</span>
       <span>
         <button mat-icon-button
         (click)="nextSource()">
-          <mat-icon>keyboard_arrow_right</mat-icon>
+          <mat-icon *ngIf="fontSet === 'material'">keyboard_arrow_right</mat-icon>
+          <mat-icon *ngIf="fontSet === 'fontawesome'" fontSet="fontawesome" fontIcon="fa-angle-right"></mat-icon>
         </button>
       </span>
     </span>
-
     <span>
       <button mat-icon-button
         (click)="fitBounds()">
-        <mat-icon>zoom_out_map</mat-icon>
+        <mat-icon *ngIf="fontSet === 'material'">zoom_out_map</mat-icon>
+        <mat-icon *ngIf="fontSet === 'fontawesome'" fontSet="fontawesome" fontIcon="fa-arrows-alt"></mat-icon>
       </button>
     </span>
     <span>
       <button mat-icon-button
         (click)="triggerHelp()">
-        <mat-icon>info</mat-icon>
+        <mat-icon *ngIf="fontSet === 'material'">info</mat-icon>
+        <mat-icon *ngIf="fontSet === 'fontawesome'" fontSet="fontawesome" fontIcon="fa-info"></mat-icon>
       </button>
     </span>
   </mat-toolbar>

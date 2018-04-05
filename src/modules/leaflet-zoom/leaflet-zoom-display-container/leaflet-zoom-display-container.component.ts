@@ -21,6 +21,9 @@ export class LeafletZoomDisplayContainerComponent implements OnInit {
   @Input()
   showCount: boolean;
 
+  @Input()
+  fontSet: string;
+
   @Output()
   overlayClick: EventEmitter<any> = new EventEmitter();
 
@@ -37,7 +40,9 @@ export class LeafletZoomDisplayContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    // if (this.fontSet === undefined) {
+    //   this.fontSet = 'material';
+    // }
   }
 
   fitBounds() {

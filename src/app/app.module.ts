@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDialogModule } from '@angular/material';
+import { MatIconModule, MatIconRegistry, MatDialogModule } from '@angular/material';
 
 import { LeafletZoomSlideShowModule } from '../modules/leaflet-zoom-slide-show.module';
 
@@ -24,9 +24,16 @@ import { FeatureDataDisplayDialogComponent } from './dialogs/feature-data-displa
     BrowserAnimationsModule,
     FlexLayoutModule,
     MatDialogModule,
+    MatIconModule,
     LeafletZoomSlideShowModule
   ],
-  providers: [],
+  providers: [
+    MatIconRegistry
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(public matIconRegistry: MatIconRegistry) {
+    matIconRegistry.registerFontClassAlias('fontawesome', 'fa');
+  }
+}
