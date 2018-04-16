@@ -46,7 +46,8 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     this.map = new Map('zoom-source', {
       crs: this.simpleCRS,
       center: latLng(0,0),
-      zoom: 0,
+      zoom: this.sourceSlideContent.zoom,
+      minZoom: this.sourceSlideContent.minZoom,
       maxBoundsViscosity: 0.7,
       attributionControl: false
     });
@@ -96,6 +97,8 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     let sourceImage = this.sourceSlideContent.sourceImage;
     let sourceTile = this.sourceSlideContent.sourceTile;
     let maxZoom = this.sourceSlideContent.maxZoom;
+    let minZoom = this.sourceSlideContent.minZoom;
+    let currZoom = this.sourceSlideContent.zoom;
     let southWest = this.map.unproject(new Point(0, imageDim[1]), maxZoom);
     let northEast = this.map.unproject(new Point(imageDim[0], 0), maxZoom);
     let maxBounds = new LatLngBounds(southWest, northEast);
@@ -103,6 +106,8 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     this.map.setMaxBounds(maxBounds);
     this.map.fitBounds(maxBounds);
     this.map.setMaxZoom(maxZoom);
+    this.map.setMinZoom(minZoom);
+    this.map.setZoom(currZoom); 
     if (this.sourceOverlay) {
       this.map.removeLayer(this.sourceOverlay);
     }

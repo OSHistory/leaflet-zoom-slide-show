@@ -2,9 +2,9 @@ const DEFAULT_FILL_COLOR = '#ffee2d';
 
 export const images = [
   {
-    zoom: 0,
+    zoom: 3,
     maxZoom: 4,
-    minZoom: 0,
+    minZoom: 2,
     imageDim: [3923, 4656],
     sourceImage: {
       imageUrl: './assets/img/usa_independence.jpg'
