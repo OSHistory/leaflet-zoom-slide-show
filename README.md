@@ -30,6 +30,9 @@ to npm.
 
 ## Changelog
 
+### 0.0.11
+
+  - Export leaflet-zoom-component
 
 ### 0.0.10
 
