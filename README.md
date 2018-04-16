@@ -30,6 +30,11 @@ to npm.
 
 ## Changelog
 
+
+### 0.0.10
+
+  - Implement minZoom, maxZoom and inital Zoom
+
 ### 0.0.9
 
   - Add fontSet options for alternatives to material icons
