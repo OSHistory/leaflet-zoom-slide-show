@@ -64,6 +64,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         zoom: this.map.getZoom()
       });
     });
+    this.onWindowResize(undefined); 
   }
 
   public ngOnChanges(changes: any) {
@@ -84,8 +85,11 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   }
 
   public onWindowResize(event: any) {
-    this.height = this.el.nativeElement.offsetHeight;
+    console.log("Calling resize");
+    console.log(this.el.nativeElement.offsetTop);
+    this.height = window.innerHeight - this.el.nativeElement.offsetTop;
   }
+
 
   // Public method to reset the zoom to the bounds
   public fitBounds() {
@@ -107,7 +111,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     this.map.fitBounds(maxBounds);
     this.map.setMaxZoom(maxZoom);
     this.map.setMinZoom(minZoom);
-    this.map.setZoom(currZoom); 
+    this.map.setZoom(currZoom);
     if (this.sourceOverlay) {
       this.map.removeLayer(this.sourceOverlay);
     }

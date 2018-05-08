@@ -30,6 +30,10 @@ to npm.
 
 ## Changelog
 
+### 0.0.12
+
+  - Visibility with @angular/flex-layout.beta-14
+
 ### 0.0.11
 
   - Export leaflet-zoom-component
