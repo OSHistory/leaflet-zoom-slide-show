@@ -16,6 +16,9 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   @Input()
   sourceSlideContent: SourceSlideContent;
 
+  @Input()
+  decreaseValue: number;
+
   @Output()
   overlayClick: EventEmitter<any> = new EventEmitter();
 
@@ -41,7 +44,11 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   ngOnInit() {
     // TODO: Alternative to use of ElementRef to increase
     //      platform independency
-    this.height = this.el.nativeElement.offsetHeight;
+    if (this.decreaseValue === undefined) {
+      this.decreaseValue = 0;
+    }
+    
+    this.height = this.el.nativeElement.offsetHeight - this.decreaseValue;
 
     this.map = new Map('zoom-source', {
       crs: this.simpleCRS,
@@ -64,7 +71,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         zoom: this.map.getZoom()
       });
     });
-    this.onWindowResize(undefined); 
+    this.onWindowResize(undefined);
   }
 
   public ngOnChanges(changes: any) {
@@ -87,7 +94,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   public onWindowResize(event: any) {
     console.log("Calling resize");
     console.log(this.el.nativeElement.offsetTop);
-    this.height = window.innerHeight - this.el.nativeElement.offsetTop;
+    this.height = window.innerHeight - this.el.nativeElement.offsetTop - this.decreaseValue;
   }
 
 
