@@ -121,6 +121,41 @@
           }
         }
       }
+    },
+    "leaflet-zoom-slide-show": {
+      "root": "projects/leaflet-zoom-slide-show",
+      "sourceRoot": "projects/leaflet-zoom-slide-show/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/leaflet-zoom-slide-show/tsconfig.lib.json",
+            "project": "projects/leaflet-zoom-slide-show/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/leaflet-zoom-slide-show/src/test.ts",
+            "tsConfig": "projects/leaflet-zoom-slide-show/tsconfig.spec.json",
+            "karmaConfig": "projects/leaflet-zoom-slide-show/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/leaflet-zoom-slide-show/tsconfig.lib.json",
+              "projects/leaflet-zoom-slide-show/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "leaflet-zoom-slide-show-app"
