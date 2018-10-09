@@ -27,4 +27,5 @@ import { LeafletZoomDisplayContainerComponent } from './leaflet-zoom/leaflet-zoo
   ]
 })
 
-export class LeafletZoomSlideShowModule { } 
+export class LeafletZoomSlideShowModule { }
+
