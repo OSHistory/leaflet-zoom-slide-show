@@ -5,9 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MatButtonModule, MatIconModule, MatToolbarModule } from '@angular/material';
 
-import { LeafletZoomDisplayComponent } from './leaflet-zoom/leaflet-zoom-display/leaflet-zoom-display.component';
-// tslint:disable-next-line:max-line-length
-import { LeafletZoomDisplayContainerComponent } from './leaflet-zoom/leaflet-zoom-display-container/leaflet-zoom-display-container.component';
+import { LeafletZoomDisplayComponent } from './leaflet-zoom-display/leaflet-zoom-display.component';
+import { LeafletZoomDisplayContainerComponent } from './leaflet-zoom-display-container/leaflet-zoom-display-container.component';
 
 @NgModule({
   imports: [
@@ -26,5 +25,4 @@ import { LeafletZoomDisplayContainerComponent } from './leaflet-zoom/leaflet-zoo
     LeafletZoomDisplayContainerComponent
   ]
 })
-
-export class LeafletZoomSlideShowModule { } 
+export class LeafletZoomModule { }
