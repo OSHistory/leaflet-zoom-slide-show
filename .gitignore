@@ -1,6 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
+
 /tmp
 /out-tsc
 /dist
@@ -30,12 +31,16 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
+
 testem.log
-/typings
 
 # e2e
 /e2e/*.js
 /e2e/*.map
+
+yarn-error.log
+testem.log
+/typings
 
 # System Files
 .DS_Store
