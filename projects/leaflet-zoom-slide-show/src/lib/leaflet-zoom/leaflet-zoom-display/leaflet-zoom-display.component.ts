@@ -1,17 +1,20 @@
-import { Component, AfterViewInit, ElementRef, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, EventEmitter, Input, Output,
+  OnChanges, OnInit } from '@angular/core';
 
-import { Icon, ImageOverlay, Polyline, PolylineOptions, Polygon, latLng, LatLngBounds, LatLngExpression, LayerGroup, Map, Marker, MarkerOptions,
+import { Icon, ImageOverlay, Polyline, PolylineOptions, Polygon, latLng,
+  LatLngBounds, LatLngExpression, LayerGroup, Map, Marker, MarkerOptions,
   Point, Popup, CRS, Rectangle, TileLayer } from 'leaflet';
 
 import { SourceSlideContent, Overlays, OverlayLine, OverlayMarker,
   OverlayPolygon, OverlayRectangle } from '../interfaces/source-slide-content';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'fze-leaflet-zoom-display',
   templateUrl: './leaflet-zoom-display.component.html',
   styleUrls: ['./leaflet-zoom-display.component.css']
 })
-export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
+export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit, OnChanges {
 
   @Input()
   sourceSlideContent: SourceSlideContent;
@@ -47,12 +50,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     if (this.decreaseValue === undefined) {
       this.decreaseValue = 0;
     }
-    
+
     this.height = this.el.nativeElement.offsetHeight - this.decreaseValue;
 
     this.map = new Map('zoom-source', {
       crs: this.simpleCRS,
-      center: latLng(0,0),
+      center: latLng(0, 0),
       zoom: this.sourceSlideContent.zoom,
       minZoom: this.sourceSlideContent.minZoom,
       maxBoundsViscosity: 0.7,
@@ -79,7 +82,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       // Don't bootstrap on first change (view might not be ready,
       // We will bootstrap in ngAfterViewInit)
       if (!changes.sourceSlideContent.firstChange) {
-        this._bootstrapSettings()
+        this._bootstrapSettings();
       }
     }
   }
@@ -87,13 +90,11 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   ngAfterViewInit() {
     // bootstrap the input
     if (this.sourceSlideContent) {
-      this._bootstrapSettings()
+      this._bootstrapSettings();
     }
   }
 
   public onWindowResize(event: any) {
-    console.log("Calling resize");
-    console.log(this.el.nativeElement.offsetTop);
     this.height = window.innerHeight - this.el.nativeElement.offsetTop - this.decreaseValue;
   }
 
@@ -104,15 +105,15 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
   }
 
   private _bootstrapSettings() {
-    let imageDim = this.sourceSlideContent.imageDim;
-    let sourceImage = this.sourceSlideContent.sourceImage;
-    let sourceTile = this.sourceSlideContent.sourceTile;
-    let maxZoom = this.sourceSlideContent.maxZoom;
-    let minZoom = this.sourceSlideContent.minZoom;
-    let currZoom = this.sourceSlideContent.zoom;
-    let southWest = this.map.unproject(new Point(0, imageDim[1]), maxZoom);
-    let northEast = this.map.unproject(new Point(imageDim[0], 0), maxZoom);
-    let maxBounds = new LatLngBounds(southWest, northEast);
+    const imageDim = this.sourceSlideContent.imageDim;
+    const sourceImage = this.sourceSlideContent.sourceImage;
+    const sourceTile = this.sourceSlideContent.sourceTile;
+    const maxZoom = this.sourceSlideContent.maxZoom;
+    const minZoom = this.sourceSlideContent.minZoom;
+    const currZoom = this.sourceSlideContent.zoom;
+    const southWest = this.map.unproject(new Point(0, imageDim[1]), maxZoom);
+    const northEast = this.map.unproject(new Point(imageDim[0], 0), maxZoom);
+    const maxBounds = new LatLngBounds(southWest, northEast);
     this.maxBounds = maxBounds;
     this.map.setMaxBounds(maxBounds);
     this.map.fitBounds(maxBounds);
@@ -141,7 +142,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
         );
         this.map.addLayer(this.sourceTileLayer);
       } else {
-        console.error("WARNING: either imageUrl or tileUrl must be set for background imagery");
+        console.error('WARNING: either imageUrl or tileUrl must be set for background imagery');
       }
     }
 
@@ -181,12 +182,12 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     let currMarker: Marker;
     let projectedCoords: LatLngExpression;
     markers.forEach((marker: OverlayMarker) => {
-      let projectedCoords = this.map.unproject(
+      projectedCoords = this.map.unproject(
         new Point(marker.coords[0], marker.coords[1]),
         maxZoom
       );
       // TODO: add icon options
-      let markerOptions: MarkerOptions = undefined;
+      let markerOptions: MarkerOptions;
       if (marker.icon) {
         markerOptions = {
           icon: new Icon(marker.icon)
@@ -198,7 +199,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
           this.overlayClick.emit({
             'type': 'marker',
             'data': marker.data
-          })
+          });
         } else {
           currMarker.openPopup();
         }
@@ -237,7 +238,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       if (polygon.popup) {
         currPoly.bindPopup(this._getPopupContent(polygon));
       }
-    })
+    });
   }
 
   private _bootstrapLines(lines: OverlayLine[], maxZoom: number) {
@@ -268,8 +269,10 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
     });
   }
 
-  private _projectCoordsArray(coords: [number, number][], maxZoom: number) :LatLngExpression[] {
-    let projectedCoords = [];
+  private _projectCoordsArray(
+    coords: [number, number][], maxZoom: number
+  ): LatLngExpression[] {
+    const projectedCoords = [];
     coords.forEach((coord) => {
       projectedCoords.push(
         this.map.unproject(
@@ -323,7 +326,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
       }
       if (rectangle.tags) {
         rectangle.tags.forEach((category, catIdx) => {
-          let marker = new Marker(
+          const marker = new Marker(
             this.map.unproject(
               new Point(
                 rectangle.bottomLeft[0],
@@ -332,7 +335,7 @@ export class LeafletZoomDisplayComponent implements AfterViewInit, OnInit {
               {
                 icon: new Icon({
                   iconUrl: category,
-                  iconSize: [32,32],
+                  iconSize: [32, 32],
                   iconAnchor: [-(16 + (32 * catIdx)), 16]
                 })
               }

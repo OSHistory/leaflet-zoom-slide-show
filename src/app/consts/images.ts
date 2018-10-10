@@ -1,4 +1,5 @@
-const DEFAULT_FILL_COLOR = '#ffee2d';
+
+import { DEFAULT_FILL_COLOR } from './default-styles';
 
 export const images = [
   {
@@ -46,7 +47,7 @@ export const images = [
           popup: {
             display: true,
             contentFunc: function(data) {
-              return "<h1>" + data.title + "</h1>";
+              return '<h1>' + data.title + '</h1>';
             }
           },
           style: {
@@ -72,11 +73,11 @@ export const images = [
           popup: {
             display: true,
             contentFunc: function(data) {
-              return "<h1>" + data.title + "</h1>" + "<p>" + data.abstract + "</p>";
+              return '<h1>' + data.title + '</h1>' + '<p>' + data.abstract + '</p>';
             },
           },
           style: {
-            fillColor: '#787aaf',
+            fillColor: DEFAULT_FILL_COLOR,
             color: '#0b186c',
             fillOpacity: 0.4
           }
@@ -111,10 +112,10 @@ export const images = [
       ],
       polygons: [
         {
-          coords: [[374,1414], [3762,1414],
-            [3762, 2112], [3098,2112], [3098, 2180],
-            [162, 2180], [162,2180], [162, 1484],
-            [374,1484]
+          coords: [[374, 1414], [3762, 1414],
+            [3762, 2112], [3098, 2112], [3098, 2180],
+            [162, 2180], [162, 2180], [162, 1484],
+            [374, 1484]
           ],
           data: {
             title: 'The "He Has..." part'
@@ -149,7 +150,7 @@ export const images = [
     }
   },
   {
-    zoom: 0,
+    zoom: 2,
     maxZoom: 4,
     minZoom: 0,
     imageDim: [3066, 3834],

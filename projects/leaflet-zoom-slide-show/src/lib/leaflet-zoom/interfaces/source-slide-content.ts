@@ -14,12 +14,12 @@ export interface SourceSlideContent {
 
 export interface SourceImage {
   imageUrl: string;
-  overlayOptions?: ImageOverlayOptions
+  overlayOptions?: ImageOverlayOptions;
 }
 
 export interface SourceTile {
   tileUrl: string;
-  tileOptions?: TileLayerOptions
+  tileOptions?: TileLayerOptions;
 }
 
 
@@ -38,11 +38,11 @@ export interface OverlayPopup {
 // TBD: use leaflet options
 export interface OverlayText {
   content: string;
-  tooltip: TooltipOptions; 
+  tooltip: TooltipOptions;
 }
 
 export interface OverlayMarker {
-  coords: [number, number],
+  coords: [number, number];
   data?: any;
   icon?: IconOptions;
   popup?: OverlayPopup;
@@ -60,7 +60,7 @@ export interface OverlayRectangle {
 }
 
 export interface OverlayLine {
-  coords: [number,number][];
+  coords: [number, number][];
   data: any;
   popup?: OverlayPopup;
   text?: OverlayText;

@@ -129,7 +129,7 @@
       "root": "projects/leaflet-zoom-slide-show",
       "sourceRoot": "projects/leaflet-zoom-slide-show/src",
       "projectType": "library",
-      "prefix": "lib",
+      "prefix": "fze",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

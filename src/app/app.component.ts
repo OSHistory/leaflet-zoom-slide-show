@@ -35,6 +35,6 @@ export class AppComponent {
   }
 
   onHelpRequested() {
-    console.log("HELP REQUESTED");
+    console.log('HELP REQUESTED');
   }
 }
