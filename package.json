@@ -9,6 +9,7 @@
     "npm_pack": "cd dist/leaflet-zoom-slide-show && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
     "test": "ng test",
+    "test_lib": "ng test --project leaflet-zoom-slide-show",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

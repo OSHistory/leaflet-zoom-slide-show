@@ -22,11 +22,17 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+### Testing 
+
+Run `ng test` to test the app itself. 
+
+Run `npm run test_lib` to test the library. 
+
 ### Build Library
 
-Run the node task `npm run packagr` to build the library. Use `npm pack` from
-inside the dist folder to build a npm package for local installing or uploading
-to npm.
+  - `build_lib`: Build the library to the distribution folder
+  - `npm_pack`: Package with npm
+  - `package`: Combine both steps in one command
 
 ## Changelog
 
