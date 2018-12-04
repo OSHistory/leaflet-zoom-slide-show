@@ -36,6 +36,10 @@ Run `npm run test_lib` to test the library.
 
 ## Changelog
 
+### 1.0.1
+
+  - Upgrade to Angular7
+  
 ### 1.0.0 
 
 	- Migration to new Angular6 Library structure
